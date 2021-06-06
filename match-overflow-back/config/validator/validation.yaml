@@ -1,0 +1,49 @@
+App\Request\SignupRequest:
+    properties:
+        email:
+            - Type: string
+            - NotBlank: ~
+        password:
+            - Type: string
+            - NotBlank: ~
+        firstName:
+            - Type: string
+            - NotBlank: ~
+        age:
+            - Type: integer
+            - NotBlank: ~
+        sex:
+            - Choice: [MALE, FEMALE, OTHER]
+            - NotBlank: ~
+        preference:
+            - Choice: [MALE, FEMALE, ALL]
+            - NotBlank: ~
+        latitude:
+            - Type: float
+            - NotBlank: ~
+        longitude:
+            - Type: float
+            - NotBlank: ~
+
+App\Request\UpdateProfileRequest:
+    properties:
+        description:
+            - Type: string
+            - NotBlank: ~
+        hobbies:
+            - Type: array
+        preference:
+            - Choice: [MALE, FEMALE, ALL]
+            - NotBlank: ~
+        maxDistance:
+            - Type: integer
+            - NotBlank: ~
+
+App\Request\UpdateGeolocationRequest:
+    properties:
+        latitude:
+            - Type: float
+            - NotBlank: ~
+        longitude:
+            - Type: float
+            - NotBlank: ~

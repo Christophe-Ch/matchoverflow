@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27018:27017"
+    volumes:
+      - db-data:/var/lib/mongo
+    networks:
+      - dev
+  www:
+    build: php
+    container_name: www_docker_symfony
+    ports:
+      - "8000:80"
+    volumes:
+      - ./php/vhosts:/etc/apache2/sites-enabled
+      - ./:/var/www
+    restart: always
+    networks:
+      - dev
+
+networks:
+  dev:
+
+volumes:
+  db-data:
