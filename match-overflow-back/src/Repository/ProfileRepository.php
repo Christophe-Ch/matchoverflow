@@ -29,6 +29,7 @@ class ProfileRepository extends ServiceDocumentRepository
     public function fetchRecommendations($profile)
     {
         $query = [
+            "id" => ["\$ne" => $profile->getId()],
             "geolocation" => [
                 "\$near" => [$profile->getGeolocation()->getLatitude(), $profile->getGeolocation()->getLongitude()],
                 "\$maxDistance" => $profile->getMaxDistance()/111.12

@@ -7,8 +7,8 @@
         @click="drawer = !drawer"
       ></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase grey--text">
-        <span class="font-weight-light">Match</span>
-        <span>Overflow</span>
+        &lt;<span class="font-weight-light">Match</span>
+        <span>Overflow</span>/&gt;
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text color="grey" v-if="isAuthenticated" @click="signOut">

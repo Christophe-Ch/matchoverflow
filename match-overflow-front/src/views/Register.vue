@@ -120,7 +120,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 import authService from "../services/auth.service";
 
@@ -141,7 +141,6 @@ export default Vue.extend({
     };
   },
   created() {
-    localStorage.removeItem("token");
     if (localStorage.getItem("token")) {
       this.$router.push("/");
     }

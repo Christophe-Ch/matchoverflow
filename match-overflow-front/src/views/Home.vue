@@ -27,15 +27,20 @@
             <v-divider></v-divider>
 
             <div class="pb-4 px-4">
-              <v-chip class="mx-2 mt-4" color="primary">
-                Docker
-              </v-chip>
-              <v-chip class="mx-2 mt-4">
-                C#
-              </v-chip>
-              <v-chip class="mx-2 mt-4">
-                Python
-              </v-chip>
+              <template v-if="this.recs[0].hobbies.length > 0">
+                <v-chip
+                  class="mx-2 mt-4"
+                  v-for="hobby in this.recs[0].hobbies"
+                  :key="hobby"
+                >
+                  {{ hobby }}
+                </v-chip>
+              </template>
+              <div v-else class="mx-2 mt-4">
+                <span class="grey--text font-italic"
+                  >[404] Hobbies not found...</span
+                >
+              </div>
             </div>
 
             <v-divider></v-divider>
@@ -45,7 +50,7 @@
                 this.recs[0].description
               }}</span>
               <span v-else class="grey--text font-italic"
-                >404 description not found...</span
+                >[404] Description not found...</span
               >
             </div>
 
@@ -53,7 +58,7 @@
 
             <div class="pa-6 d-flex justify-space-between">
               <v-btn color="error" @click="dislike">dislike();</v-btn>
-              <v-btn color="success">like();</v-btn>
+              <v-btn color="success" @click="like">like();</v-btn>
             </div>
           </v-card>
         </v-col>
@@ -62,7 +67,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 import recommendationService from "../services/recommendation.service";
 
@@ -87,6 +92,10 @@ export default Vue.extend({
       return recommendationService.fetchRecommendations();
     },
     dislike() {
+      this.recs.shift();
+    },
+    like() {
+      recommendationService.sendLike(this.recs[0].id);
       this.recs.shift();
     },
   },

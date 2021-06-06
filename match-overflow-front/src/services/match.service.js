@@ -8,18 +8,18 @@ const CONFIG = {
   },
 };
 
-class RecommendationService {
-  fetchRecommendations() {
+class MatchService {
+  getMatches() {
     return axios
-      .get(API_URL + "rec", CONFIG)
+      .get(API_URL + "match", CONFIG)
       .then((response) => {
-        const profiles = response.data.map((rec) => {
-          if (rec.pictures.length == 0) {
-            rec.pictures.push(
+        const profiles = response.data.map((match) => {
+          if (match.pictures.length == 0) {
+            match.pictures.push(
               "https://i.pinimg.com/originals/b7/f0/db/b7f0db1455d5a1fcfdb41ef6a13822e2.png"
             );
           }
-          return rec;
+          return match;
         });
         return {
           success: true,
@@ -43,4 +43,4 @@ class RecommendationService {
   }
 }
 
-export default new RecommendationService();
+export default new MatchService();
