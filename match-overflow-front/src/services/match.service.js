@@ -2,16 +2,14 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8000/api/";
 
-const CONFIG = {
-  headers: {
-    Authorization: "Bearer " + localStorage.getItem("token"),
-  },
-};
-
 class MatchService {
   getMatches() {
     return axios
-      .get(API_URL + "match", CONFIG)
+      .get(API_URL + "match", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
       .then((response) => {
         const profiles = response.data.map((match) => {
           if (match.pictures.length == 0) {
@@ -33,7 +31,15 @@ class MatchService {
 
   sendLike(profileId) {
     return axios
-      .post(API_URL + "like/" + profileId, {}, CONFIG)
+      .post(
+        API_URL + "like/" + profileId,
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
       .then(() => {
         return { success: true };
       })

@@ -2,16 +2,14 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8000/api/";
 
-const CONFIG = {
-  headers: {
-    Authorization: "Bearer " + localStorage.getItem("token"),
-  },
-};
-
 class RecommendationService {
   fetchRecommendations() {
     return axios
-      .get(API_URL + "rec", CONFIG)
+      .get(API_URL + "rec", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
       .then((response) => {
         const profiles = response.data.map((rec) => {
           if (rec.pictures.length == 0) {
@@ -33,7 +31,15 @@ class RecommendationService {
 
   sendLike(profileId) {
     return axios
-      .post(API_URL + "like/" + profileId, {}, CONFIG)
+      .post(
+        API_URL + "like/" + profileId,
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
       .then(() => {
         return { success: true };
       })
